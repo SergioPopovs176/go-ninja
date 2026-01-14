@@ -1,0 +1,9 @@
+1) Run golang program
+go run main.go
+2) Make bin file 
+go build main.go
+3) Run bin file
+ ./main
+
+ 4) Go packages
+ https://pkg.go.dev/

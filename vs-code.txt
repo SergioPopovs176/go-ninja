@@ -1,0 +1,5 @@
+1) open commands in IDE
+ctrl+shift+P
+2) update GO tools
+ctrl+shift+P
+Go: Install/Update Tools
