@@ -4,6 +4,19 @@ go run main.go
 go build main.go
 3) Run bin file
  ./main
-
  4) Go packages
  https://pkg.go.dev/
+ 5) func init() — это специальная функция инициализации, 
+ которая автоматически вызывается до main(), без явного вызова.
+ init() нужна для подготовки состояния программы перед запуском.
+Порядок выполнения
+Инициализация переменных пакета
+init() в импортируемых пакетах
+init() в текущем пакете
+main()
+6) create modul
+go mod init go-ninja/basic
+7) update relations from mod file
+go mod download
+8) add package to project
+go get github.com/zhashkevych/scheduler
