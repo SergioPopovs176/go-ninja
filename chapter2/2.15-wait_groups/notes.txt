@@ -1,0 +1,8 @@
+Start duration : 
+TIME ELAPSED : 4.219608011s
+
+With sleep 11 milliseconds
+TIME ELAPSED : 18.588975967s
+
+Run gorutins using wait group
+TIME ELAPSED : 2.979188044s

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -60,24 +61,36 @@ func main() {
 	// }
 	// fmt.Println(user.getActivityInfo())
 
+	t := time.Now()
+	wg := &sync.WaitGroup{}
+
 	rand.Seed(time.Now().Unix())
-	for _, user := range generateUsers(3) {
-		saveUserInfo(user)
+	for _, user := range generateUsers(1000) {
+		wg.Add(1)
+		go saveUserInfo(user, wg)
 	}
+
+	wg.Wait()
+
+	fmt.Println("TIME ELAPSED :", time.Since(t).String())
 }
 
-func saveUserInfo(user User) error {
+func saveUserInfo(user User, wg *sync.WaitGroup) error {
+	time.Sleep(time.Millisecond * 11)
 	fmt.Printf("WRITING FILE FOR USER %d\n", user.id)
 
 	fileName := fmt.Sprintf("logs/uuid_%d.txt", user.id)
 
 	file, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
+		fmt.Println("ERROR :", err)
 		return err
 	}
 	defer file.Close()
 
 	file.WriteString(user.getActivityInfo())
+
+	wg.Done()
 
 	return nil
 }
@@ -88,7 +101,7 @@ func generateUsers(count int) []User {
 		users[i] = User{
 			id:    i + 1,
 			email: fmt.Sprintf("user%d@gmail.com", i+1),
-			logs:  generateLogs(rand.Intn(3)),
+			logs:  generateLogs(rand.Intn(1000)),
 		}
 	}
 
